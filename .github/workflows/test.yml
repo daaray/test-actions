@@ -21,7 +21,7 @@ jobs:
       - name: Configure staging deploy
         if: contains(github.ref, 'staging')
         run: |
-          echo "AWS_S3_BUCKET_TARGET=${{ secrets.AWS_S3_BUCKET_NAME }}-staging/${ ENVIRONMENT }" >> $GITHUB_ENV
+          echo "AWS_S3_BUCKET_TARGET=${{ secrets.AWS_S3_BUCKET_NAME }}-staging/$ENVIRONMENT" >> $GITHUB_ENV
           echo S3 deploy target is $ENVIRONMENT
           echo DOMAIN=https://www.grove-$ENVIRONMENT.gext.co >> .env
           echo base domain is https://www.grove-$ENVIRONMENT.gext.co
