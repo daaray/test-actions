@@ -28,7 +28,7 @@ jobs:
           echo $ENVIRONMENT
           echo ${ENVIRONMENT}
         env:
-          ENVIRONMENT: ${GITHUB_REF}
+          ENVIRONMENT: ${env.GITHUB_REF}
 
       - name: Configure production deploy
         if: endswith(github.ref, '/main')
