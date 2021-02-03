@@ -27,7 +27,6 @@ jobs:
           echo base domain is https://www.grove-$ENVIRONMENT.gext.co
           echo ${ENVIRONMENT}
           echo ${{ENVIRONMENT}}
-          echo ${env.ENVIRONMENT}
         env:
           ENVIRONMENT: ${GITHUB_REF#refs/heads/}
 
