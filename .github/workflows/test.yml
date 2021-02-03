@@ -14,12 +14,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-        BRANCH: echo '${github.ref}'
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Configure staging deploy
+        if: contains(github.ref, 'staging')
+        run: |
+          echo "AWS_S3_BUCKET_TARGET=${{ secrets.AWS_S3_BUCKET_NAME }}-staging/${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "S3 deploy target is ${GITHUB_REF#refs/heads/}"
+          echo DOMAIN=https://www.grove-${GITHUB_REF#refs/heads/}.gext.co >> .env
+          echo "base domain is https://www.grove-${BRANCH}.gext.co"
 
-      - name: test
-        run: echo $BRANCH
+      - name: Configure production deploy
+        if: endswith(github.ref, '/main')
+        run: |
+          echo "AWS_S3_BUCKET_TARGET=${{ secrets.AWS_S3_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "S3 deploy target is production"
+          echo DOMAIN=https://www.grove.co >> .env
+          echo "base domain is https://www.grove.co"
+
