@@ -25,7 +25,6 @@ jobs:
           echo S3 deploy target is $ENVIRONMENT
           echo DOMAIN=https://www.grove-$ENVIRONMENT.gext.co >> .env
           echo base domain is https://www.grove-$ENVIRONMENT.gext.co
-          echo ${ENVIRONMENT}
           echo ${{ENVIRONMENT}}
         env:
           ENVIRONMENT: ${GITHUB_REF#refs/heads/}
