@@ -27,7 +27,7 @@ jobs:
           echo "base domain is https://www.grove-${GITHUB_REF#refs/heads/}.gext.co"
           echo $ENVIRONMENT
         env:
-          ENVIRONMENT: GITHUB_REF
+          ENVIRONMENT: #{GITHUB_REF}
 
       - name: Configure production deploy
         if: endswith(github.ref, '/main')
