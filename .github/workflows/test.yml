@@ -25,10 +25,6 @@ jobs:
           echo "S3 deploy target is ${GITHUB_REF#refs/heads/}"
           echo DOMAIN=https://www.grove-${GITHUB_REF#refs/heads/}.gext.co >> .env
           echo "base domain is https://www.grove-${GITHUB_REF#refs/heads/}.gext.co"
-          echo "$ENVIRONMENT"
-          echo "${ENVIRONMENT}"
-        env:
-          ENVIRONMENT: (${GITHUB_REF#refs/heads/})
 
       - name: Configure production deploy
         if: endswith(github.ref, '/main')
