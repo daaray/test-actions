@@ -65,7 +65,7 @@ jobs:
       - name: Set Staging bucket name
         if: contains(env.ENVIRONMENT, 'staging')
         run: |
-            echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}-${{ENVIRONMENT}}" >> $GITHUB_ENV
+            echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}-${ENVIRONMENT}" >> $GITHUB_ENV
 
       - name: Remove old files from bucket
         run:  echo $AWS_S3_BUCKET_NAME
