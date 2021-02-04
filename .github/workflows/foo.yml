@@ -1,0 +1,71 @@
+name: CI2
+
+on:
+  push:
+    branches:
+      - foo
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_version: [14]
+        include:
+          - environment: "production"
+            domain: "https://www.grove.co"
+          - environment: "staging1"
+            domain: "https://www.grove-staging1.gext.co"
+          - environment: "staging2"
+            domain: "https://www.grove-staging2.gext.co"
+          - environment: "staging3"
+            domain: "https://www.grove-staging3.gext.co"
+          - environment: "staging4"
+            domain: "https://www.grove-staging4.gext.co"
+          - environment: "staging5"
+            domain: "https://www.grove-staging5.gext.co"
+          - environment: "staging6"
+            domain: "https://www.grove-staging6.gext.co"
+
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Define env vars for the this iteration of the matrix
+        run: |
+          echo "ENVIRONMENT=${{ matrix.environment }}" >> $GITHUB_ENV
+          echo "DOMAIN=${{ matrix.domain }}" >> $GITHUB_ENV
+
+      - name: Build json pages
+        run: |
+          echo DOMAIN=${DOMAIN} >> .env
+          cat .env
+
+      - name: Build Production static pages
+        if: endswith(env.ENVIRONMENT, 'production')
+        run: |
+          echo Built ${ENVIRONMENT} static pages
+
+      - name: Build Staging static pages
+        if: contains(env.ENVIRONMENT, 'staging')
+        run: |
+          echo Built ${ENVIRONMENT} static pages
+
+      - name: Set Production bucket name
+        if: endswith(env.ENVIRONMENT, 'production')
+        run: |
+            echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}" >> $GITHUB_ENV
+
+      - name: Set Staging bucket name
+        if: contains(env.ENVIRONMENT, 'staging')
+        run: |
+            echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}-${{ENVIRONMENT}}" >> $GITHUB_ENV
+
+      - name: Remove old files from bucket
+        run:  echo $AWS_S3_BUCKET_NAME
