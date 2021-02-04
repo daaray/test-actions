@@ -12,30 +12,27 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [14]
         include:
-          - environment: "production"
-            domain: "https://www.grove.co"
-          - environment: "staging1"
-            domain: "https://www.grove-staging1.gext.co"
-          - environment: "staging2"
-            domain: "https://www.grove-staging2.gext.co"
-          - environment: "staging3"
-            domain: "https://www.grove-staging3.gext.co"
-          - environment: "staging4"
-            domain: "https://www.grove-staging4.gext.co"
-          - environment: "staging5"
-            domain: "https://www.grove-staging5.gext.co"
-          - environment: "staging6"
-            domain: "https://www.grove-staging6.gext.co"
+          - environment: production
+            domain: https://www.grove.co
+          - environment: staging1
+            domain: https://www.grove-staging1.gext.co
+          - environment: staging2
+            domain: https://www.grove-staging2.gext.co
+          - environment: staging3
+            domain: https://www.grove-staging3.gext.co
+          - environment: staging4
+            domain: https://www.grove-staging4.gext.co
+          - environment: staging5
+            domain: https://www.grove-staging5.gext.co
+          - environment: staging6
+            domain: https://www.grove-staging6.gext.co
 
 
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Define env vars for the this iteration of the matrix
         run: |
