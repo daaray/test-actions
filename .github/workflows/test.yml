@@ -34,5 +34,6 @@ jobs:
           echo DOMAIN=https://www.grove.co >> .env
           echo "base domain is https://www.grove.co"
           echo "FOO=${{ secrets.FOO }}" >> .env
+          echo FOOL=${{ secrets.FOO }} >> .env
           cat .env
 
