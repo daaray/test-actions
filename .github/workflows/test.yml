@@ -33,4 +33,6 @@ jobs:
           echo "S3 deploy target is production"
           echo DOMAIN=https://www.grove.co >> .env
           echo "base domain is https://www.grove.co"
+          echo "FOO=${{ secrets.FOO }}" >> .env
+          cat .env
 
